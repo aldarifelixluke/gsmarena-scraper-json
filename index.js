@@ -178,7 +178,7 @@ const phoneSearch = (req, res, next) => {
     res.setHeader('Content-Type', 'application/json');
     console.log(req.params)
     request({
-        url: URI + '/resl.php3?sQuickSearch=yes&sName=' + req.params.phone,
+        url: URI + '/resl.php3?sQuickSearch=yes&sSearch=' + req.params.phone,
         headers: {
             "User-Agent": "request"
         }
