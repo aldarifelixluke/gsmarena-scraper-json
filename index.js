@@ -12,7 +12,7 @@ const cors = corsMiddleware({
 
 // Get All Phone Brands Maker from GSM ARENA
 const phoneBrands = (req, res, next) => {
-
+res.setHeader('Content-Type', 'application/json');
     request({
         url: URI + '/makers.php3',
         headers: {
@@ -46,6 +46,7 @@ const phoneBrands = (req, res, next) => {
 
 // Get brand phone list
 const phoneBrand = (req, res, next) => {
+    res.setHeader('Content-Type', 'application/json');
     console.log(req.params)
     request({
         url: URI + '/' + req.params.id,
@@ -93,6 +94,7 @@ const phoneBrand = (req, res, next) => {
 
 // Get phone detail
 const phoneDetail = (req, res, next) => {
+    res.setHeader('Content-Type', 'application/json');
     request({
         url: URI + '/' + req.params.phone,
         headers: {
@@ -173,6 +175,7 @@ const phoneDetail = (req, res, next) => {
 
 // search for phone
 const phoneSearch = (req, res, next) => {
+    res.setHeader('Content-Type', 'application/json');
     console.log(req.params)
     request({
         url: URI + '/results.php3?sQuickSearch=yes&sName=' + req.params.phone,
@@ -211,6 +214,7 @@ const phoneSearch = (req, res, next) => {
 
 // Get all reviews
 const phoneReviews = (req, res, next) => {
+    res.setHeader('Content-Type', 'application/json');
     console.log(req.params)
     request({
         url: URI + '/reviews.php3',
@@ -257,6 +261,7 @@ const phoneReviews = (req, res, next) => {
 };
 
 const phoneReview = (req, res, next) => {
+    res.setHeader('Content-Type', 'application/json');
     request({
         url: URI + '/' + req.params.url,
         headers: {
@@ -301,7 +306,8 @@ const phoneReview = (req, res, next) => {
 var server = restify.createServer();
 server.pre(cors.preflight);
 server.use(cors.actual);
-
+server.use(restify.plugins.bodyParser()); // Untuk mem-parsing body JSON
+server.use(restify.plugins.queryParser()); // Untuk mem-parsing query string
 server.get('/gsmarena/brands', phoneBrands);
 server.head('/gsmarena/brands', phoneBrands);
 
